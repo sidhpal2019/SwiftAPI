@@ -170,11 +170,12 @@ export function extractEndpoints(definition) {
   });
 }
 
-export function generateTestSuite(definition, config) {
+export function generateTestSuite(definition, config, selectedMethodKeys) {
   const protocol = String(config?.protocol || 'https').replace(':', '');
   const serverPath = resolveServerFromDefinition(definition, config?.serverPath || '');
   const paths = definition?.paths || {};
   const rows = [];
+  const hasSelectionFilter = selectedMethodKeys instanceof Set;
 
   Object.entries(paths).forEach(([pathName, pathItem]) => {
     const pathParams = Array.isArray(pathItem?.parameters)
@@ -184,6 +185,10 @@ export function generateTestSuite(definition, config) {
     SUPPORTED_METHODS.forEach((methodName) => {
       const operation = pathItem?.[methodName];
       if (!operation) {
+        return;
+      }
+
+      if (hasSelectionFilter && !selectedMethodKeys.has(`${pathName}::${methodName}`)) {
         return;
       }
 

@@ -35,6 +35,26 @@ body {
   padding: 2rem 1.2rem 2.5rem;
 }
 
+.workspace-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 26vw);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.workspace-main {
+  min-width: 0;
+}
+
+.workspace-sidebar {
+  position: sticky;
+  top: 1rem;
+  height: calc(100vh - 4rem);
+  max-height: calc(100vh - 4rem);
+  overflow: auto;
+  align-self: start;
+}
+
 .aurora {
   position: absolute;
   inset: 0;
@@ -88,6 +108,20 @@ body {
   justify-content: space-between;
   gap: 0.8rem;
   margin-bottom: 0.7rem;
+}
+
+.panel-head-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+.panel-head-actions button:not(.icon-toggle) {
+  border-radius: 8px;
+  padding: 0.22rem 0.48rem;
+  font-size: 0.72rem;
+  white-space: nowrap;
 }
 
 .panel-head h2 {
@@ -202,6 +236,15 @@ button.icon-toggle {
   margin-top: 0.9rem;
 }
 
+.definition-top-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+  flex-wrap: wrap;
+}
+
 .token-preview {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.78rem;
@@ -267,6 +310,17 @@ button.icon-toggle {
   width: 90px;
   text-align: center;
   font-family: 'IBM Plex Mono', monospace;
+}
+
+.endpoint-method-checkbox {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.endpoint-method-checkbox:disabled {
+  cursor: not-allowed;
 }
 
 .endpoint-matrix-table .group-row td {
@@ -401,6 +455,353 @@ td.fail {
   background: rgba(255, 255, 255, 0.6);
 }
 
+.workspace-intro {
+  margin-top: 0.2rem;
+}
+
+.workspace-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.workspace-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.workspace-snapshot {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  padding: 0.6rem 0.68rem;
+}
+
+.workspace-snapshot.selected {
+  border-color: rgba(14, 143, 126, 0.45);
+  box-shadow: 0 0 0 1px rgba(14, 143, 126, 0.12) inset;
+}
+
+.workspace-snapshot > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  font-weight: 700;
+}
+
+.workspace-snapshot > summary::-webkit-details-marker {
+  display: none;
+}
+
+.workspace-snapshot-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workspace-snapshot-body {
+  margin-top: 0.75rem;
+}
+
+.snapshot-controls {
+  margin-bottom: 0.62rem;
+}
+
+.snapshot-suite-controls {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.snapshot-suite-name-field {
+  font-size: 0.77rem;
+}
+
+.snapshot-suite-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.snapshot-suite-actions button {
+  border-radius: 8px;
+  padding: 0.24rem 0.56rem;
+  font-size: 0.72rem;
+}
+
+.hierarchy-list,
+.hierarchy-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hierarchy-list {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.52);
+}
+
+.hierarchy-group + .hierarchy-group {
+  border-top: 1px solid var(--line);
+}
+
+.hierarchy-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.45);
+  padding: 0.42rem 0.52rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.hierarchy-group-title {
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.hierarchy-group-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  white-space: nowrap;
+}
+
+.hierarchy-group-count {
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+}
+
+.hierarchy-toggle-link {
+  border: 1px solid rgba(26, 37, 33, 0.25);
+  border-radius: 8px;
+  width: 1.55rem;
+  height: 1.55rem;
+  min-width: 1.55rem;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  text-decoration: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+.hierarchy-toggle-link:hover {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent-strong);
+  transform: none;
+}
+
+.hierarchy-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+  padding: 0.38rem 0.52rem;
+  border-bottom: 1px solid rgba(26, 37, 33, 0.1);
+}
+
+.hierarchy-row:last-child {
+  border-bottom: 0;
+}
+
+.hierarchy-path {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hierarchy-method {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.1rem 0.44rem;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.workspace-snapshot-label {
+  margin: 0 0 0.55rem;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.workspace-root {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  padding: 0.65rem 0.7rem;
+}
+
+.workspace-root > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  font-weight: 700;
+}
+
+.workspace-root > summary::-webkit-details-marker,
+.tree-node summary::-webkit-details-marker {
+  display: none;
+}
+
+.workspace-root-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workspace-root-remove {
+  border-radius: 8px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.74rem;
+  line-height: 1.2;
+}
+
+.workspace-root-body {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 0.8rem;
+}
+
+.tree-branch h4 {
+  margin: 0 0 0.55rem;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.tree-root,
+.snapshot-list,
+.tree-children,
+.tree-leaf-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tree-root,
+.snapshot-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.snapshot-load {
+  min-width: 4rem;
+}
+
+.tree-empty,
+.tree-node-meta,
+.tree-leaf-meta {
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+}
+
+.nested-tree {
+  margin-top: 0.7rem;
+  padding-left: 0.45rem;
+  border-left: 1px dashed rgba(26, 37, 33, 0.16);
+}
+
+.explorer-tree {
+  margin-top: 0;
+}
+
+.tree-node {
+  margin-top: 0.45rem;
+}
+
+.tree-node > details > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  padding: 0.34rem 0.45rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(26, 37, 33, 0.08);
+}
+
+.tree-node-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tree-node-body {
+  margin-left: 0.55rem;
+  padding-left: 0.45rem;
+  border-left: 1px dotted rgba(26, 37, 33, 0.12);
+}
+
+.tree-children {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.tree-leaf-list {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+}
+
+.tree-leaf {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  padding: 0.3rem 0.35rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.tree-leaf-stack {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.tree-leaf-title {
+  font-weight: 600;
+}
+
+.tree-leaf-methods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.tree-load-button {
+  padding: 0.22rem 0.5rem;
+}
+
+.tree-node-meta {
+  white-space: nowrap;
+}
+
 .json-preview pre {
   margin: 0;
   padding: 0.2rem;
@@ -422,6 +823,16 @@ td.fail {
 }
 
 @media (max-width: 980px) {
+  .workspace-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .workspace-sidebar {
+    position: static;
+    max-height: none;
+    height: auto;
+  }
+
   .grid-two {
     grid-template-columns: 1fr;
   }
@@ -432,5 +843,9 @@ td.fail {
 
   .summary {
     margin-left: 0;
+  }
+
+  .snapshot-head {
+    grid-template-columns: 1fr;
   }
 }
